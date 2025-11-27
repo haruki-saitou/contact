@@ -1,0 +1,315 @@
+/*
+ * Admin (管理画面) 固有のスタイル
+ * common.css は app.blade.php 経由で読み込まれていることを前提とします。
+ * モーダル関連のCSSは app.blade.php に移動済みです。
+ */
+
+/* -------------------------------------
+ * 1. 変数定義 (index.css内で使用する追加変数があれば)
+ * ------------------------------------- */
+/* common.css の変数が読み込まれているので、ここでは追加の変数のみ定義します */
+:root {
+    --color-search-bg: #FFFFFF; /* 検索フォームの背景色 */
+    --color-search-input-bg: #F4F4F4; /* 検索入力欄の背景色を少し濃いグレーに */
+    --color-search-border: #E0E0E0; /* 検索入力欄の枠線 */
+    --color-search-button-search: #827E78; /* 検索ボタンの色 */
+    --color-search-button-reset: #B4A999; /* リセットボタンの色 */
+    --color-export-button: #B4A999; /* エクスポートボタンの色 */
+    --color-table-header-bg: #827E78; /* テーブルヘッダーの背景色 */
+    --color-table-row-hover: #F8F8F8; /* テーブル行ホバー時の色 */
+    --color-detail-button: #B4A999; /* 詳細ボタンの色 */
+}
+
+/* -------------------------------------
+ * 2. 全体コンテナとタイトル
+ * ------------------------------------- */
+
+.admin__wrapper {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.admin__title {
+    font-size: 28px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--color-text-primary);
+}
+
+/* -------------------------------------
+ * 3. 検索フォーム
+ * ------------------------------------- */
+
+.search-form__container {
+    background-color: var(--color-search-bg);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+}
+
+.search-form__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.search-form__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.search-form__input,
+.search-form__select,
+.search-form__date-input {
+    flex: 1;
+    min-width: 150px;
+    padding: 8px 12px;
+    border: 1px solid var(--color-search-border);
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: var(--color-search-input-bg);
+    color: var(--color-text-primary);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; /* 標準のスタイルをリセット */
+    /* ↓ select と date input の矢印/カレンダーアイコンをスクリーンショットに合わせる */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+/* select の下向き矢印 */
+.search-form__select {
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212%22%20height%3D%228%22%20viewBox%3D%220%200%2012%208%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M6%208L0.803848%200.5L11.1962%200.5L6%208Z%22%20fill%3D%22%23888888%22%2F%3E%3C%2Fsvg%3E');
+    background-size: 12px 8px;
+}
+
+/* date input のカレンダーアイコン (これはブラウザ依存なので、完全に一致は難しいかもしれません) */
+/* スクリーンショットの見た目に近づけるため、標準のカレンダーアイコンを消す場合は以下のコメントアウトを外す */
+.search-form__date-input::-webkit-calendar-picker-indicator {
+    opacity: 0; /* カレンダーアイコンを透明にする */
+    position: absolute; /* クリック領域を確保 */
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+/* カレンダーアイコンの代替として、inputの背景にカレンダーアイコンを置く */
+.search-form__date-input {
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20fill%3D%22%23888888%22%3E%3Cpath%20d%3D%22M0%200h24v24H0V0z%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M19%203h-1V1h-2v2H8V1H6v2H5c-1.11%200-1.99.9-1.99%202L3%2019c0%201.1.89%202%202%202h14c1.1%200%202-.9%202-2V5c0-1.1-.9-2-2-2zm0%2016H5V8h14v11zM12%209c-1.66%200-3%201.34-3%203s1.34%203%203%203%203-1.34%203-3-1.34-3-3-3z%22%2F%3E%3C%2Fsvg%3E');
+    background-size: 18px 18px;
+    background-position: right 8px center;
+    padding-right: 35px; /* アイコン分のパディング */
+}
+
+
+.search-form__buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center; /* スクリーンショットに合わせて中央寄せ */
+    width: 100%;
+}
+
+.search-form__button {
+    flex-shrink: 0;
+    padding: 8px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.search-form__button--search {
+    background-color: var(--color-search-button-search);
+    color: white;
+}
+.search-form__button--search:hover {
+    background-color: var(--color-accent-button-hover);
+}
+
+.search-form__button--reset {
+    background-color: var(--color-search-button-reset);
+    color: white;
+}
+.search-form__button--reset:hover {
+    background-color: #9F978F;
+}
+
+/* -------------------------------------
+ * 4. エクスポートボタンとページネーションの配置
+ * ------------------------------------- */
+
+.admin__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.admin__button.admin__button--export {
+    background-color: var(--color-export-button);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+.admin__button.admin__button--export:hover {
+    background-color: #9F978F;
+}
+
+.pagination-links {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+/* Laravel標準のページネーションのスタイルを調整 */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    display: block;
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    color: var(--color-accent-button);
+    background-color: var(--color-background-card);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.page-link:hover {
+    background-color: var(--color-background-primary);
+    border-color: var(--color-accent-button);
+}
+
+.page-item.active .page-link {
+    background-color: var(--color-accent-button);
+    color: white;
+    border-color: var(--color-accent-button);
+}
+
+.page-item.disabled .page-link {
+    color: var(--color-text-secondary);
+    cursor: not-allowed;
+    background-color: #f0f0f0;
+    border-color: #ddd;
+}
+/* SVGアイコンの色はHTMLのstyleタグで指定済みですが、念のためここでも */
+.page-item.disabled .page-link svg {
+    fill: var(--color-text-secondary);
+}
+
+
+/* -------------------------------------
+ * 5. お問い合わせ一覧テーブル
+ * ------------------------------------- */
+
+.contact-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--color-background-card);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.contact-list th,
+.contact-list td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 14px;
+}
+
+.contact-list th {
+    background-color: var(--color-table-header-bg);
+    color: white;
+    font-weight: bold;
+}
+
+.contact-list tbody tr:nth-child(even) {
+    background-color: #fefefe;
+}
+
+.contact-list tbody tr:hover {
+    background-color: var(--color-table-row-hover);
+}
+
+/* 詳細ボタン */
+.contact-list__detail-button {
+    background-color: var(--color-detail-button);
+    color: white;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.contact-list__detail-button:hover {
+    background-color: #9F978F;
+}
+
+/* -------------------------------------
+ * 6. レスポンシブ対応 (最小限)
+ * ------------------------------------- */
+@media (max-width: 768px) {
+    .search-form__row {
+        flex-direction: column; /* 検索フィールドを縦並びに */
+        align-items: stretch; /* 幅いっぱいに広がる */
+    }
+    .search-form__input,
+    .search-form__select,
+    .search-form__date-input {
+        min-width: unset; /* 最小幅の制限を解除 */
+        width: 100%; /* 幅いっぱいに */
+        max-width: 100%;
+    }
+    .search-form__buttons {
+        flex-direction: column; /* ボタンも縦並びに */
+    }
+    .search-form__button {
+        width: 100%; /* ボタンも幅いっぱいに */
+    }
+    .admin__actions {
+        flex-direction: column; /* エクスポートとページネーションも縦並びに */
+        align-items: flex-start; /* 左寄せ */
+        gap: 15px;
+    }
+    .pagination-links {
+        width: 100%;
+        text-align: left; /* ページネーションを左寄せに */
+    }
+    .pagination {
+        justify-content: flex-start; /* ページ番号も左寄せに */
+    }
+    .contact-list th,
+    .contact-list td {
+        padding: 8px 10px; /* 小さい画面でパディングを減らす */
+    }
+}

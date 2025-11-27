@@ -1,0 +1,107 @@
+:root {
+    --color-background-primary: #edebe9;
+    --color-background-card: #ffffff;
+    --color-text-primary: #333333;
+    --color-text-secondary: #888888;
+    --color-border: #dddddd;
+    --color-accent-button: #827e78;
+    --color-accent-button-hover: #6c6963;
+    --color-header-text: #a0998e;
+    --color-header-text-hover: #9f978f;
+}
+
+body {
+    font-family: "Arial", "Helvetica Neue", "Helvetica", "Meiryo", sans-serif;
+    background-color: #ece4dd;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header {
+    padding: 20px 0px 10px 0px;
+    text-align: right;
+    background-color: #ffffff;
+}
+
+.header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.header__logo {
+    font-size: 28px;
+    font-weight: normal;
+    color: #a0998e;
+    flex-grow: 1;
+    text-align: center;
+    margin-left: 100px;
+}
+
+.header__nav {
+    flex-shrink: 0;
+}
+
+.nav__button {
+    background-color: #f0eeee;
+    border: 1px solid #c4bfb7;
+    color: #c4bfb7;
+    padding: 0px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+    margin: 0 15px 10px 25px;
+    display: inline-block;
+}
+
+.nav__button:hover {
+    background-color: var(--color-accent-button-hover);
+    border-color: var(--color-accent-button-hover);
+    color: var(--color-background-card);
+}
+
+@media (max-width: 768px) {
+    .header__inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 10px;
+    }
+    .header__logo {
+        text-align: left;
+        margin-bottom: 10px;
+    }
+    .header__nav {
+        width: 100%;
+        text-align: left;
+    }
+    .nav__button {
+        margin-left: 0;
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
+    .card {
+        padding: 30px 20px;
+        max-width: 90%;
+    }
+}

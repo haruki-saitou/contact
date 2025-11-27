@@ -1,0 +1,104 @@
+.main__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: normal;
+    color: #a0998e;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 40px 50px;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.form__group {
+    margin:0 0 25px 60px;
+    text-align: left;
+}
+
+.form__label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #a0998e;
+    margin: 12px 0;
+}
+
+.form input[type="text"]:focus,
+.form input[type="email"]:focus,
+.form input[type="password"]:focus,
+.form__input--text:focus,
+.form__input--password:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(130, 126, 120, 0.4);
+}
+
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"],
+.form__input--text,
+.form__input--password {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #f7f7f7;
+    font-size: 13px;
+    color: #959088;
+    background-color: #f7f7f7;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form input::placeholder {
+    color: #c4bfb7;
+    font-style: italic;
+}
+
+.form__button {
+    display: block;
+    width: 30%;
+    padding: 10px 20px;
+    background-color: #827e78;
+    color: #ffffff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 40px auto 0;
+}
+
+.form__button:hover {
+    background-color: #6c6963;
+}
+
+.error-message,
+.form__error {
+    color: #e3342f;
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 30px 20px;
+        max-width: 90%;
+    }
+}
