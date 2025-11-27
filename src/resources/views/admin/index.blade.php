@@ -15,40 +15,110 @@
         --color-text-primary: #333333;
         --color-text-secondary: #888888;
         --color-border: #DDDDDD;
+        /* index.cssのカスタムプロパティ */
+        --color-search-bg: #ffffff;
+        --color-search-input-bg: #f4f4f4;
+        --color-search-border: #e0e0e0;
+        --color-search-button-search: #827e78;
+        --color-search-button-reset: #b4a999;
+        --color-export-button: #b4a999;
+        --color-table-header-bg: #827e78;
+        --color-table-row-hover: #f8f8f8;
+        --color-detail-button: #b4a999;
     }
 
     /* ページネーションのSVGアイコンのスタイル */
-    .pagination-links svg.w-5.h-5 {
-        /* 親要素のクラスも指定して詳細度を上げる */
-        width: 20px;
-        /* 少し小さく調整 */
-        height: 20px;
-        /* 色は後ほど.pagination-link-buttonで設定するため、ここでは指定しない */
+
+    /* Laravel標準のページネーション出力全体 (navタグ) に適用 */
+    .pagination-links nav {
+        display: flex;
+        justify-content: flex-end; /* ページネーション全体を右寄せ */
+        align-items: center;
+        width: 100%;
     }
 
-    /* ページネーションのアイコンの色をcommon.cssの変数から取得 */
-    .pagination-links .pagination .page-item .page-link span {
+    /* "Showing 1 to 5 of 37 results" の部分を非表示 (Tailwindのデフォルト出力に依存) */
+    .pagination-links nav > div:first-child {
+        display: none;
+    }
+
+    /* ページネーションのリンクを囲む要素 (数字と前後のボタン) に適用 */
+    .pagination-links nav > div:last-child {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+
+    /* リンクの各要素 (aタグまたはspanタグ) */
+    .pagination-links a,
+    .pagination-links span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        margin: 0 2px;
+        border: 1px solid var(--color-border);
+        border-radius: 5px;
         color: var(--color-accent-button);
-        /* 数字の色 */
+        background-color: var(--color-background-card);
+        text-decoration: none;
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        font-size: 14px;
+        box-sizing: border-box; /* パディングとボーダーを幅・高さに含める */
     }
 
-    .pagination-links .pagination .page-item.active .page-link span {
+    /* ホバー時のスタイル */
+    .pagination-links a:hover {
+        background-color: var(--color-background-primary);
+        border-color: var(--color-accent-button);
+        color: var(--color-accent-button);
+    }
+
+    /* アクティブなページ (spanタグになることが多い) */
+    .pagination-links span[aria-current="page"],
+    .pagination-links a:focus { /* フォーカス時のスタイル (Tailwindで付与されることも考慮) */
+        background-color: var(--color-accent-button);
         color: white;
-        /* アクティブな数字の色 */
+        border-color: var(--color-accent-button);
+        font-weight: bold;
     }
 
-    .pagination-links .pagination .page-item .page-link svg {
-        fill: var(--color-accent-button);
-        /* 矢印の色 */
-    }
-
-    .pagination-links .pagination .page-item.disabled .page-link span,
-    .pagination-links .pagination .page-item.disabled .page-link svg {
+    /* 無効なリンク (spanタグになることが多い) */
+    .pagination-links span:not([aria-current="page"]) {
         color: var(--color-text-secondary);
-        /* 無効な矢印や数字の色 */
-        fill: var(--color-text-secondary);
-        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: #f0f0f0;
+        border-color: #ddd;
     }
+
+    /* SVGアイコンのスタイル */
+    .pagination-links svg.w-5.h-5 {
+        width: 16px;
+        height: 16px;
+        /* fillはaタグやspanタグのcolorプロパティを参照することが多いため、ここではfillを直接指定 */
+        fill: var(--color-accent-button);
+    }
+
+    /* 無効なリンク内のSVGアイコンの色 */
+    .pagination-links span:not([aria-current="page"]) svg.w-5.h-5 {
+        fill: var(--color-text-secondary);
+    }
+
+    /* "前へ" "次へ" のボタンのスタイル調整 */
+    .pagination-links a[rel="prev"],
+    .pagination-links a[rel="next"] {
+        padding: 0 12px;
+    }
+
+    /* "前へ" "次へ" のテキスト (Tailwindのデフォルト出力に依存) */
+    .pagination-links a[rel="prev"] > span,
+    .pagination-links a[rel="next"] > span {
+        margin: 0 4px;
+    }
+
 </style>
 
 @section('content')
@@ -79,9 +149,10 @@
                             </option>
                         @endforeach
                     </select>
+                    {{-- 日付入力フィールドを1つにまとめ、開始日のみ表示 (画像に合わせて) --}}
                     <input type="date" name="date_from" value="{{ request('date_from') }}"
                         class="search-form__date-input"> {{-- ★修正: クラス追加 --}}
-                    {{-- date_to はスクリーンショットにないので一旦非表示のままで --}}
+                    {{-- date_to はスクリーンショットにないので非表示のまま --}}
                     <input type="date" name="date_to" value="{{ request('date_to') }}" style="display:none;"
                         class="search-form__date-input">
                 </div>

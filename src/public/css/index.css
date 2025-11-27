@@ -1,28 +1,14 @@
-/*
- * Admin (管理画面) 固有のスタイル
- * common.css は app.blade.php 経由で読み込まれていることを前提とします。
- * モーダル関連のCSSは app.blade.php に移動済みです。
- */
-
-/* -------------------------------------
- * 1. 変数定義 (index.css内で使用する追加変数があれば)
- * ------------------------------------- */
-/* common.css の変数が読み込まれているので、ここでは追加の変数のみ定義します */
 :root {
-    --color-search-bg: #FFFFFF; /* 検索フォームの背景色 */
-    --color-search-input-bg: #F4F4F4; /* 検索入力欄の背景色を少し濃いグレーに */
-    --color-search-border: #E0E0E0; /* 検索入力欄の枠線 */
-    --color-search-button-search: #827E78; /* 検索ボタンの色 */
-    --color-search-button-reset: #B4A999; /* リセットボタンの色 */
-    --color-export-button: #B4A999; /* エクスポートボタンの色 */
-    --color-table-header-bg: #827E78; /* テーブルヘッダーの背景色 */
-    --color-table-row-hover: #F8F8F8; /* テーブル行ホバー時の色 */
-    --color-detail-button: #B4A999; /* 詳細ボタンの色 */
+    --color-search-bg: #ffffff;
+    --color-search-input-bg: #f4f4f4;
+    --color-search-border: #e0e0e0;
+    --color-search-button-search: #827e78;
+    --color-search-button-reset: #b4a999;
+    --color-export-button: #b4a999;
+    --color-table-header-bg: #827e78;
+    --color-table-row-hover: #f8f8f8;
+    --color-detail-button: #b4a999;
 }
-
-/* -------------------------------------
- * 2. 全体コンテナとタイトル
- * ------------------------------------- */
 
 .admin__wrapper {
     max-width: 1200px;
@@ -37,10 +23,6 @@
     margin-bottom: 40px;
     color: var(--color-text-primary);
 }
-
-/* -------------------------------------
- * 3. 検索フォーム
- * ------------------------------------- */
 
 .search-form__container {
     background-color: var(--color-search-bg);
@@ -59,15 +41,15 @@
 .search-form__row {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .search-form__input,
 .search-form__select,
 .search-form__date-input {
-    flex: 1;
+    flex: 1 1 18%;
     min-width: 150px;
     padding: 8px 12px;
     border: 1px solid var(--color-search-border);
@@ -77,42 +59,48 @@
     color: var(--color-text-primary);
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none; /* 標準のスタイルをリセット */
-    /* ↓ select と date input の矢印/カレンダーアイコンをスクリーンショットに合わせる */
+    appearance: none;
     background-repeat: no-repeat;
     background-position: right 10px center;
     padding-right: 30px;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(130, 126, 120, 0.2);
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* select の下向き矢印 */
+.search-form__input:focus,
+.search-form__select:focus,
+.search-form__date-input:focus {
+    border-color: var(--color-accent-button);
+    box-shadow: 0 0 0 2px rgba(130, 126, 120, 0.4);
+}
+
 .search-form__select {
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212%22%20height%3D%228%22%20viewBox%3D%220%200%2012%208%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M6%208L0.803848%200.5L11.1962%200.5L6%208Z%22%20fill%3D%22%23888888%22%2F%3E%3C%2Fsvg%3E');
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212%22%20height%3D%228%22%20viewBox%3D%220%200%2012%208%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M6%208L0.803848%200.5L11.1962%200.5L6%208Z%22%20fill%3D%22%23888888%22%2F%3E%3C%2Fsvg%3E");
     background-size: 12px 8px;
 }
 
-/* date input のカレンダーアイコン (これはブラウザ依存なので、完全に一致は難しいかもしれません) */
-/* スクリーンショットの見た目に近づけるため、標準のカレンダーアイコンを消す場合は以下のコメントアウトを外す */
 .search-form__date-input::-webkit-calendar-picker-indicator {
-    opacity: 0; /* カレンダーアイコンを透明にする */
-    position: absolute; /* クリック領域を確保 */
+    opacity: 0;
+    position: absolute;
     width: 100%;
     height: 100%;
     cursor: pointer;
 }
-/* カレンダーアイコンの代替として、inputの背景にカレンダーアイコンを置く */
 .search-form__date-input {
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20fill%3D%22%23888888%22%3E%3Cpath%20d%3D%22M0%200h24v24H0V0z%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M19%203h-1V1h-2v2H8V1H6v2H5c-1.11%200-1.99.9-1.99%202L3%2019c0%201.1.89%202%202%202h14c1.1%200%202-.9%202-2V5c0-1.1-.9-2-2-2zm0%2016H5V8h14v11zM12%209c-1.66%200-3%201.34-3%203s1.34%203%203%203%203-1.34%203-3-1.34-3-3-3z%22%2F%3E%3C%2Fsvg%3E');
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20fill%3D%22%23888888%22%3E%3Cpath%20d%3D%22M0%200h24v24H0V0z%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M19%203h-1V1h-2v2H8V1H6v2H5c-1.11%200-1.99.9-1.99%202L3%2019c0%201.1.89%202%202%202h14c1.1%200%202-.9%202-2V5c0-1.1-.9-2-2-2zm0%2016H5V8h14v11zM12%209c-1.66%200-3%201.34-3%203s1.34%203%203%203%203-1.34%203-3-1.34-3-3-3z%22%2F%3E%3C%2Fsvg%3E");
     background-size: 18px 18px;
     background-position: right 8px center;
-    padding-right: 35px; /* アイコン分のパディング */
+    padding-right: 35px;
+    position: relative;
 }
-
 
 .search-form__buttons {
     display: flex;
     gap: 15px;
-    justify-content: center; /* スクリーンショットに合わせて中央寄せ */
+    justify-content: center;
     width: 100%;
+    margin-top: 10px;
 }
 
 .search-form__button {
@@ -127,6 +115,7 @@
     text-decoration: none;
     text-align: center;
     white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-form__button--search {
@@ -142,12 +131,8 @@
     color: white;
 }
 .search-form__button--reset:hover {
-    background-color: #9F978F;
+    background-color: #9f978f;
 }
-
-/* -------------------------------------
- * 4. エクスポートボタンとページネーションの配置
- * ------------------------------------- */
 
 .admin__actions {
     display: flex;
@@ -166,65 +151,20 @@
     font-weight: bold;
     text-decoration: none;
     transition: background-color 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .admin__button.admin__button--export:hover {
-    background-color: #9F978F;
+    background-color: #9f978f;
 }
 
 .pagination-links {
     margin-bottom: 0;
     font-size: 14px;
-}
-
-/* Laravel標準のページネーションのスタイルを調整 */
-.pagination {
+    flex-grow: 1;
     display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    justify-content: flex-end;
+    align-items: center;
 }
-
-.page-item {
-    margin: 0 5px;
-}
-
-.page-link {
-    display: block;
-    padding: 8px 12px;
-    border: 1px solid var(--color-border);
-    border-radius: 5px;
-    color: var(--color-accent-button);
-    background-color: var(--color-background-card);
-    text-decoration: none;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-}
-
-.page-link:hover {
-    background-color: var(--color-background-primary);
-    border-color: var(--color-accent-button);
-}
-
-.page-item.active .page-link {
-    background-color: var(--color-accent-button);
-    color: white;
-    border-color: var(--color-accent-button);
-}
-
-.page-item.disabled .page-link {
-    color: var(--color-text-secondary);
-    cursor: not-allowed;
-    background-color: #f0f0f0;
-    border-color: #ddd;
-}
-/* SVGアイコンの色はHTMLのstyleタグで指定済みですが、念のためここでも */
-.page-item.disabled .page-link svg {
-    fill: var(--color-text-secondary);
-}
-
-
-/* -------------------------------------
- * 5. お問い合わせ一覧テーブル
- * ------------------------------------- */
 
 .contact-list table {
     width: 100%;
@@ -258,7 +198,6 @@
     background-color: var(--color-table-row-hover);
 }
 
-/* 詳細ボタン */
 .contact-list__detail-button {
     background-color: var(--color-detail-button);
     color: white;
@@ -269,47 +208,63 @@
     font-size: 13px;
     transition: background-color 0.2s;
     white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .contact-list__detail-button:hover {
-    background-color: #9F978F;
+    background-color: #9f978f;
 }
 
-/* -------------------------------------
- * 6. レスポンシブ対応 (最小限)
- * ------------------------------------- */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .search-form__row {
-        flex-direction: column; /* 検索フィールドを縦並びに */
-        align-items: stretch; /* 幅いっぱいに広がる */
+        justify-content: center;
     }
     .search-form__input,
     .search-form__select,
     .search-form__date-input {
-        min-width: unset; /* 最小幅の制限を解除 */
-        width: 100%; /* 幅いっぱいに */
+        flex: 1 1 45%;
+        min-width: unset;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-form__row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .search-form__input,
+    .search-form__select,
+    .search-form__date-input {
+        width: 100%;
         max-width: 100%;
+        flex: 1 1 auto;
     }
     .search-form__buttons {
-        flex-direction: column; /* ボタンも縦並びに */
+        flex-direction: column;
+        gap: 10px;
     }
     .search-form__button {
-        width: 100%; /* ボタンも幅いっぱいに */
+        width: 100%;
     }
     .admin__actions {
-        flex-direction: column; /* エクスポートとページネーションも縦並びに */
-        align-items: flex-start; /* 左寄せ */
+        flex-direction: column;
+        align-items: flex-start;
         gap: 15px;
     }
     .pagination-links {
         width: 100%;
-        text-align: left; /* ページネーションを左寄せに */
+        justify-content: center;
     }
-    .pagination {
-        justify-content: flex-start; /* ページ番号も左寄せに */
-    }
+
     .contact-list th,
     .contact-list td {
-        padding: 8px 10px; /* 小さい画面でパディングを減らす */
+        padding: 8px 10px;
+    }
+    .contact-list th:nth-child(2),
+    .contact-list td:nth-child(2),
+    .contact-list th:nth-child(3),
+    .contact-list td:nth-child(3) {
+        display: none;
     }
 }
