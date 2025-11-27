@@ -41,3 +41,34 @@
 
 ![ER Diagram](assets/er_diagram.png) <br>
 
+users Table (ユーザー認証情報)  
+Column Name,Data Type,Key/Constraints,Description
+id,BIGINT UNSIGNED,PRIMARY KEY,ユーザーID
+name,VARCHAR(255),,ユーザー名
+email,VARCHAR(255),UNIQUE,メールアドレス (ログインID)
+password,VARCHAR(255),,パスワード (ハッシュ化)
+remember_token,VARCHAR(100),NULLABLE,ログイン状態維持トークン
+created_at,TIMESTAMP,,レコード作成日時
+updated_at,TIMESTAMP,,レコード更新日時
+
+categories Table (お問い合わせカテゴリ)  
+Column Name,Data Type,Key/Constraints,Description
+id,BIGINT UNSIGNED,PRIMARY KEY,カテゴリID
+content,VARCHAR(255),,カテゴリ内容
+created_at,TIMESTAMP,,レコード作成日時
+updated_at,TIMESTAMP,,レコード更新日時
+
+contacts Table (お問い合わせ内容)  
+Column Name,Data Type,Key/Constraints,Description
+id,BIGINT UNSIGNED,PRIMARY KEY,お問い合わせID
+category_id,BIGINT UNSIGNED,FOREIGN KEY (参照: categories.id),お問い合わせカテゴリID
+last_name,VARCHAR(255),,姓
+first_name,VARCHAR(255),,名
+gender,TINYINT,,"性別 (1:男性, 2:女性, 3:その他)"
+email,VARCHAR(255),,メールアドレス
+tel,VARCHAR(255),,電話番号
+address,VARCHAR(255),,住所
+building,VARCHAR(255),NULLABLE,建物名 (任意)
+detail,TEXT,,お問い合わせ詳細
+created_at,TIMESTAMP,,レコード作成日時
+updated_at,TIMESTAMP,,レコード更新日時
